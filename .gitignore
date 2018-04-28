@@ -1,0 +1,24 @@
+# ignore everything
+/*
+
+# http://php-pds.com/
+
+## dirs
+!/bin/
+!/config/
+!/docs/
+!/public/
+!/resources/
+!/src/
+!/tests/
+
+## files
+!/.editorconfig
+!/.eslintrc
+!/.gitattributes
+!/.gitignore
+!/composer.*
+!/docker-compose.yml
+!/LICENSE*
+!/package.json
+!/README*

@@ -1,0 +1,28 @@
+{
+  "name": "kaluzki/shop-bot",
+  "license": "MIT",
+  "authors": [{"name": "Demjan Kaluzki"}],
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "require": {
+    "php": ">=5.6"
+  },
+  "require-dev": {
+  },
+  "autoload": {
+    "psr-4": {
+      "kaluzki\\": ["src/kaluzki"]
+    },
+    "files": [
+      "src/autoload-files.php"
+    ]
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "kaluzki\\": ["tests/kaluzki"]
+    },
+    "files": [
+      "tests/autoload-files.php"
+    ]
+  }
+}

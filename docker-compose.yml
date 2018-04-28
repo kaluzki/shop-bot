@@ -1,0 +1,64 @@
+version: "3"
+
+services:
+
+  app:
+    build:
+      context: config/docker/app
+    volumes:
+      - .:/app
+      - ~/.composer:/home/application/.composer
+    working_dir: /app
+    hostname: app
+    environment:
+      WEB_ALIAS_DOMAIN: "*.localhost"
+      WEB_DOCUMENT_ROOT: "/app/source"
+      XDEBUG_REMOTE_HOST: "172.19.0.1"
+      # long session (60*60*24*10 = 10 days)
+      php.session.gc_maxlifetime: "864000"
+      php.session.gc_divisor: "1000"
+      php.session.cache_expire: "180"
+    networks:
+      - default
+      - traefik
+    labels:
+      - "traefik.backend=app"
+      - "traefik.frontend.rule=Host:app.localhost"
+      - "traefik.frontend.redirect.entryPoint=https"
+      - "traefik.docker.network=traefik"
+      - "traefik.enable=true"
+
+  pma:
+    build:
+      context: config/docker/db
+    hostname: pma
+    environment:
+      PMA_ABSOLUTE_URI: pma.localhost
+      PMA_USER: root
+      PMA_PASSWORD: root
+    networks:
+      - default
+      - traefik
+    labels:
+      - "traefik.backend=pma"
+      - "traefik.frontend.rule=Host:pma.localhost"
+      - "traefik.docker.network=traefik"
+      - "traefik.enable=true"
+
+  db:
+    build:
+      context: config/docker/db
+    volumes:
+      - db:/var/lib/mysql
+    hostname: db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: app
+
+
+networks:
+  traefik:
+    external: true
+
+volumes:
+  db:
