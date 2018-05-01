@@ -1,1 +1,1 @@
-FROM webdevops/php-dev:debian-8
+FROM webdevops/php-apache-dev:7.1
